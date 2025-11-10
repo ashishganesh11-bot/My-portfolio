@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ashish Kumar Yadav • Software Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0f1a;
+      --bg-2:#0a0d17;
+      --text:#e8f0ff;
+      --muted:#9fb0d0;
+      --neon:#5ee7ff; /* accent */
+      --neon-2:#7c4dff; /* secondary */
+      --card:#0e1424cc; /* glass */
+      --border:#1a2340;
+      --success:#25d366;
+      --danger:#ff5e7e;
+      --shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 0 0 1px rgba(94,231,255,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:radial-gradient(1200px 600px at 20% -10%, rgba(124,77,255,.2), transparent 60%),radial-gradient(1000px 500px at 90% 10%, rgba(94,231,255,.18), transparent 60%), var(--bg);color:var(--text);font-family:Outfit, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;}
+    a{color:var(--neon);text-decoration:none}
+
+    /* Animated grid background */
+    .grid-bg:before{
+      content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
+      background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 50px 50px; transform: translateZ(0); animation: drift 25s linear infinite;
+    }
+    @keyframes drift { to { transform: translate3d(-50px,-50px,0);} }
+
+    header{position:sticky; top:0; backdrop-filter: blur(10px); background: linear-gradient( to right, rgba(14,20,36,.7), rgba(14,20,36,.35)); border-bottom:1px solid var(--border); z-index:50}
+    .nav{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 18px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.4px}
+    .brand .logo{width:34px;height:34px;border-radius:10px;background: radial-gradient(60% 60% at 30% 30%, var(--neon), transparent 60%), radial-gradient(60% 60% at 70% 70%, var(--neon-2), transparent 60%), linear-gradient(145deg, #0e1a2f, #091024); box-shadow: 0 0 24px rgba(94,231,255,.45), inset 0 0 20px rgba(124,77,255,.25);}
+    .nav a{margin:0 10px;opacity:.9}
+    .nav a:hover{opacity:1}
+    .cta{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:14px;background:linear-gradient(180deg, rgba(14,20,36,.7), rgba(14,20,36,.4));box-shadow:var(--shadow)}
+
+    .hero{max-width:1100px;margin:40px auto 0;display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;padding:0 18px}
+    .badge{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);border-radius:999px;padding:6px 12px;background:linear-gradient(180deg, rgba(14,20,36,.7), rgba(14,20,36,.4));box-shadow:var(--shadow);font-size:13px;color:var(--muted)}
+    h1{font-size:clamp(34px, 4vw, 56px); line-height:1.1; margin:14px 0}
+    .highlight{background:linear-gradient(90deg, var(--neon), var(--neon-2)); -webkit-background-clip:text; background-clip:text; color:transparent}
+    .subtitle{color:var(--muted);font-size:18px;line-height:1.6}
+    .actions{margin-top:20px; display:flex; flex-wrap:wrap; gap:12px}
+    .btn{padding:12px 16px; border-radius:14px; border:1px solid var(--border); background:linear-gradient(180deg, rgba(14,20,36,.9), rgba(14,20,36,.5)); color:var(--text); box-shadow: var(--shadow); transition: transform .15s ease, box-shadow .2s ease; display:inline-flex; align-items:center; gap:10px}
+    .btn:hover{transform: translateY(-2px); box-shadow: 0 12px 30px rgba(94,231,255,.18)}
+    .btn.primary{border-color:rgba(94,231,255,.4); box-shadow: 0 0 0 2px rgba(94,231,255,.18), 0 10px 30px rgba(94,231,255,.2)}
+
+    .card{background:linear-gradient(180deg, rgba(14,20,36,.8), rgba(10,13,23,.8)); border:1px solid var(--border); border-radius:18px; padding:18px; box-shadow: var(--shadow)}
+    section{max-width:1100px;margin:50px auto;padding:0 18px}
+    section h2{font-size:24px; letter-spacing:.3px; display:flex; align-items:center; gap:10px}
+    .line{height:1px; background:linear-gradient(90deg, rgba(124,77,255,.6), rgba(94,231,255,.6)); border-radius:999px; margin:14px 0}
+
+    .kpis{display:grid;grid-template-columns:repeat(4,1fr); gap:16px}
+    .kpi{padding:16px;border-radius:16px;border:1px dashed rgba(94,231,255,.35); background:linear-gradient(180deg, rgba(14,20,36,.7), rgba(14,20,36,.35))}
+    .kpi b{font-size:22px}
+    .muted{color:var(--muted)}
+
+    .grid{display:grid; gap:16px}
+    .grid.cols-2{grid-template-columns:1fr 1fr}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+
+    .skill{display:flex;align-items:center;justify-content:space-between; padding:12px 14px; border:1px solid var(--border); border-radius:14px; background:linear-gradient(180deg, rgba(14,20,36,.7), rgba(14,20,36,.35))}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:999px;color:var(--muted);font-size:13px;background:linear-gradient(180deg, rgba(14,20,36,.7), rgba(14,20,36,.35))}
+
+    .timeline{position:relative;padding-left:22px}
+    .timeline:before{content:""; position:absolute; left:8px; top:0; bottom:0; width:2px; background:linear-gradient(180deg, var(--neon), var(--neon-2)); opacity:.35}
+    .t-item{position:relative; margin:0 0 16px 0}
+    .t-item:before{content:""; position:absolute; left:-16px; top:10px; width:10px; height:10px; border-radius:50%; background:var(--neon); box-shadow:0 0 14px rgba(94,231,255,.9)}
+
+    .project{display:flex; gap:16px; border:1px solid var(--border); border-radius:16px; padding:16px; background:linear-gradient(180deg, rgba(14,20,36,.7), rgba(14,20,36,.35))}
+    .thumb{min-width:160px; height:110px; border-radius:12px; background: radial-gradient(60% 60% at 40% 30%, rgba(94,231,255,.45), transparent 60%), radial-gradient(60% 60% at 70% 70%, rgba(124,77,255,.45), transparent 60%), linear-gradient(145deg, #0e1a2f, #091024); box-shadow: inset 0 0 30px rgba(255,255,255,.08), 0 10px 30px rgba(0,0,0,.35)}
+
+    .footer{max-width:1100px;margin:40px auto 80px;border:1px solid var(--border);border-radius:18px;padding:18px;background:linear-gradient(180deg, rgba(14,20,36,.8), rgba(10,13,23,.8));box-shadow:var(--shadow)}
+
+    .tag-row{display:flex; flex-wrap:wrap; gap:8px}
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr}
+      .kpis{grid-template-columns:repeat(2,1fr)}
+      .grid.cols-2{grid-template-columns:1fr}
+      .grid.cols-3{grid-template-columns:repeat(2,1fr)}
+      .project{flex-direction:column}
+    }
+    @media (max-width: 520px){
+      .kpis{grid-template-columns:1fr}
+      .grid.cols-3{grid-template-columns:1fr}
+    }
+
+    /* small flourish */
+    .glow{box-shadow: 0 0 24px rgba(94,231,255,.35), 0 0 42px rgba(124,77,255,.2)}
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <header>
+    <nav class="nav">
+      <div class="brand"><div class="logo" aria-hidden="true"></div> <span>Ashish Kumar Yadav</span></div>
+      <div class="links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#education">Education</a>
+        <a href="#certs">Certs</a>
+        <a href="#contact" class="cta">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <span class="badge">🚀 Open to Work • Software Developer</span>
+        <h1>Hi, I'm <span class="highlight">Ashish Kumar Yadav</span><br/>I build fast, accessible, <span class="highlight">futuristic</span> web apps.</h1>
+        <p class="subtitle">Software Developer specializing in JavaScript/TypeScript, React, Node.js and data‑driven UI. I love crafting delightful experiences with performance and accessibility at the core.</p>
+        <div class="actions">
+          <a href="#projects" class="btn primary">View Projects</a>
+          <a href="#contact" class="btn">Hire Me</a>
+          <a href="Ashish.pdf" class="btn" download>Download Résumé</a>
+        </div>
+        <div class="line"></div>
+        <div class="kpis">
+          <div class="kpi"><b>15+</b><div class="muted">Responsive Web Apps</div></div>
+          <div class="kpi"><b>3</b><div class="muted">Deep Learning Models</div></div>
+          <div class="kpi"><b>7.3/10</b><div class="muted">B.Tech CGPA</div></div>
+          <div class="kpi"><b>2</b><div class="muted">Job Simulations</div></div>
+        </div>
+      </div>
+      <div class="card glow">
+        <h3 style="margin-top:0">Quick Profile</h3>
+        <div class="tag-row" style="margin:8px 0 12px">
+          <span class="pill">📍 India</span>
+          <span class="pill">💼 Backend Intern @ Ziffer</span>
+          <span class="pill">🎓 CSE, NIMS University</span>
+        </div>
+        <p class="muted" style="margin:0 0 10px">I enjoy building scalable services and sleek interfaces. Recently focused on micro‑frontends and performance optimization using Lighthouse & Web Vitals.</p>
+        <div class="tag-row">
+          <span class="pill">Email: <button id="copyEmail" class="pill" style="border-color:rgba(94,231,255,.4)">copy 📋</button></span>
+          <span class="pill">LinkedIn: <a href="https://www.linkedin.com/in/ashish-kumar-yadav-220ash3323/" target="_blank" rel="noreferrer">profile ↗</a></span>
+          <span class="pill">GitHub: <a href="#" target="_blank" rel="noreferrer">coming soon</a></span>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2>🛠️ Skills</h2>
+      <div class="line"></div>
+      <div class="grid cols-3">
+        <div class="skill"><span>JavaScript / TypeScript</span><span class="muted">Advanced</span></div>
+        <div class="skill"><span>Python / C++</span><span class="muted">Intermediate</span></div>
+        <div class="skill"><span>React.js / Next.js</span><span class="muted">Advanced</span></div>
+        <div class="skill"><span>Node.js</span><span class="muted">Intermediate</span></div>
+        <div class="skill"><span>Databases (MongoDB, SQL)</span><span class="muted">Intermediate</span></div>
+        <div class="skill"><span>Styling (Tailwind, MUI, Bootstrap)</span><span class="muted">Advanced</span></div>
+        <div class="skill"><span>Data Viz (Power BI)</span><span class="muted">Intermediate</span></div>
+        <div class="skill"><span>Tools (Git, GitHub, npm, VS Code)</span><span class="muted">Daily</span></div>
+        <div class="skill"><span>Accessibility & Performance</span><span class="muted">Focus</span></div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2>💼 Experience</h2>
+      <div class="line"></div>
+      <div class="timeline">
+        <div class="t-item card">
+          <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+            <b>Ziffer Technologies Pvt. Ltd. — Backend Engineering Intern</b>
+            <span class="muted">Pune • Jun 2024 – Jul 2024</span>
+          </div>
+          <ul>
+            <li>Built server‑side logic and data layers in Python, Ruby, and Java to support web & mobile apps.</li>
+            <li>Wrote tests and debugged product issues for reliability and smooth operation.</li>
+            <li>Participated in code reviews and Agile ceremonies with cross‑functional teams.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>🧪 Projects</h2>
+      <div class="line"></div>
+      <div class="grid cols-2">
+        <article class="project">
+          <div class="thumb" aria-hidden="true"></div>
+          <div>
+            <h3 style="margin:0 0 6px">College Event Management System</h3>
+            <p class="muted" style="margin:0 0 10px">Full‑stack website for managing college events with student registration, admin coordination, and digitized workflows.</p>
+            <div class="tag-row" style="margin-bottom:10px">
+              <span class="pill">JavaScript</span><span class="pill">HTML</span><span class="pill">CSS</span><span class="pill">SQL</span>
+            </div>
+            <a href="#" class="btn">Live Demo</a>
+            <a href="#" class="btn">Source Code</a>
+          </div>
+        </article>
+        <article class="project">
+          <div class="thumb" aria-hidden="true"></div>
+          <div>
+            <h3 style="margin:0 0 6px">Deep Vein Thrombosis (DVT) Prediction</h3>
+            <p class="muted" style="margin:0 0 10px">Automated medical image analysis using GANs, CNNs, RNN/LSTM on MRI & Doppler data to assist faster, accurate diagnosis.</p>
+            <div class="tag-row" style="margin-bottom:10px">
+              <span class="pill">Python</span><span class="pill">DL</span><span class="pill">GAN</span><span class="pill">CNN</span><span class="pill">RNN/LSTM</span>
+            </div>
+            <a href="#" class="btn">Paper / Notes</a>
+            <a href="#" class="btn">Repo</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="education">
+      <h2>🎓 Education</h2>
+      <div class="line"></div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+          <b>NIMS University, Jaipur — B.Tech in Computer Science & Engineering</b>
+          <span class="muted">2021 – 2025 • CGPA: 7.3/10</span>
+        </div>
+        <p class="muted">Coursework: Data Structures & Algorithms, Web Development, HCI, Software Engineering.</p>
+      </div>
+    </section>
+
+    <section id="certs">
+      <h2>🏅 Certifications & Achievements</h2>
+      <div class="line"></div>
+      <div class="grid cols-2">
+        <div class="card">
+          <b>TATA — Cybersecurity Analyst Job Simulation</b>
+          <div class="muted">Jan 5 – Jan 25, 2025</div>
+          <p class="muted">IAM fundamentals, strategy assessment, custom solutions & platform integration.</p>
+        </div>
+        <div class="card">
+          <b>Accenture — Data Analytics & Visualization Job Simulation</b>
+          <div class="muted">Oct 1 – Oct 23, 2024</div>
+          <p class="muted">Data cleaning, modeling, visualization and storytelling.</p>
+        </div>
+        <div class="card">
+          <b>Frontend Development Bootcamp (Udemy)</b>
+          <p class="muted">Built multiple responsive apps and reusable UI components.</p>
+        </div>
+        <div class="card">
+          <b>Performance & OSS</b>
+          <p class="muted">Optimized apps with Lighthouse & Web Vitals; contributed to repos via bugfixes & docs.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>📬 Contact</h2>
+      <div class="line"></div>
+      <div class="footer">
+        <div class="grid cols-2">
+          <div>
+            <h3 style="margin-top:0">Let's build something futuristic.</h3>
+            <p class="muted">I’m open to Software Developer / Frontend / Full‑Stack roles. Based in India, available for remote work.</p>
+            <div class="tag-row">
+              <span class="pill">Email: <a href="mailto:ashishganesh11@gmail.com">ashishganesh11@gmail.com</a></span>
+              <span class="pill">Phone: <a href="tel:+919169917955">+91‑9169917955</a></span>
+              <span class="pill">LinkedIn: <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/ashish-kumar-yadav-220ash3323/">ashish‑kumar‑yadav</a></span>
+            </div>
+          </div>
+          <form class="card" onsubmit="event.preventDefault(); showToast('Thanks! I will get back to you soon.'); this.reset();">
+            <label>Name<br><input required class="input" type="text" placeholder="Your name"/></label>
+            <label>Email<br><input required class="input" type="email" placeholder="you@domain.com"/></label>
+            <label>Message<br><textarea required class="input" rows="4" placeholder="Tell me about your project..."></textarea></label>
+            <button class="btn primary" type="submit">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer style="text-align:center;color:var(--muted);padding:20px 0 40px">
+    © <span id="year"></span> Ashish Yadav • Crafted with HTML • CSS • JS
+  </footer>
+
+  <style>
+    .input{width:100%; margin:6px 0 12px; padding:12px 14px; border-radius:12px; border:1px solid var(--border); background:linear-gradient(180deg, rgba(9,12,24,.85), rgba(12,16,30,.75)); color:var(--text)}
+    .toast{position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:linear-gradient(180deg, rgba(14,20,36,.9), rgba(14,20,36,.6)); border:1px solid rgba(94,231,255,.4); color:var(--text); padding:12px 16px; border-radius:12px; box-shadow:var(--shadow); opacity:0; pointer-events:none}
+    .toast.show{opacity:1; animation: toast 2.2s ease forwards}
+    @keyframes toast{0%{transform:translate(-50%,20px); opacity:0} 10%,85%{transform:translate(-50%,0); opacity:1} 100%{transform:translate(-50%,10px); opacity:0}}
+  </style>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+      });
+    });
+
+    // copy email
+    const email = 'ashishganesh11@gmail.com';
+    document.getElementById('copyEmail').addEventListener('click', async ()=>{
+      try{ await navigator.clipboard.writeText(email); showToast('Email copied: ' + email); }catch{ showToast('Could not copy, please copy manually.'); }
+    });
+
+    // tiny observer reveal
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){ entry.target.animate([
+          {opacity:0, transform:'translateY(10px)'}, {opacity:1, transform:'translateY(0)'}
+        ], {duration:500, easing:'ease-out', fill:'forwards'}); io.unobserve(entry.target); }
+      })
+    }, {threshold:.1});
+    document.querySelectorAll('section .card, .project, .skill, .kpi').forEach(el=> io.observe(el));
+
+    function showToast(msg){
+      const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(()=> t.classList.remove('show'), 2300);
+    }
+  </script>
+</body>
+</html>
